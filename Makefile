@@ -14,7 +14,7 @@ SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 INCLUDES = $(wildcard $(INCDIR)/*.h)
 
 # generate object file names from source file names
-OBJECTS = main.o OptionsPricer.o
+OBJECTS = main.o optionsPricer.o
 
 # set the output binary name
 EXECUTABLE = main
@@ -22,21 +22,21 @@ EXECUTABLE = main
 # define the build rules
 all: $(EXECUTABLE)
 
-# OptionsPricer.o : src/OptionsPricer.cpp include/OptionsPricer.h
-# 	$(CXX) $(CXXFLAGS) src/OptionsPricer.cpp
+main: main.o optionsPricer.o
+	$(CXX) $(CXXFLAGS) main.o optionsPricer.o -o $@
 
-# main.o : src/main.cpp include/OptionsPricer.h
-main.o : $(SOURCES) $(INCLUDES)
-	$(CXX) $(CXXFLAGS) src/main.cpp
+main.o : src/main.cpp src/OptionsPricer.cpp
+	$(CXX) $(CXXFLAGS) -c src/main.cpp -o $@
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXECUTABLE)
+optionsPricer.o : src/OptionsPricer.cpp include/OptionsPricer.h
+	$(CXX) $(CXXFLAGS) -c src/OptionsPricer.cpp -o $@
+
 
 # %.o: $(SRCDIR)/%.cpp
 # 	$(CXX) $(CXXFLAGS) -I$(INCDIR) -c $< -jo $@
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) $< -o $@
+# %.o: %.cpp
+# 	$(CXX) $(CXXFLAGS) $< -o $@
 
 # define the clean rule
 clean:

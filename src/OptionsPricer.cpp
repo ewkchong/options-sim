@@ -6,7 +6,7 @@
 
 using namespace optP;
 
-double call_price(double s,
+double optionsPricer::call_price(double s,
 		double ex,
 		double r,
 		double sig,
@@ -21,7 +21,7 @@ double call_price(double s,
 	return s*n1-ex*exp(-r*(tte))*n2;
 }
 
-double put_price(double s,
+double optionsPricer::put_price(double s,
 		double ex,
 		double r,
 		double sig,
