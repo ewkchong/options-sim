@@ -22,8 +22,8 @@ EXECUTABLE = main
 # define the build rules
 all: $(EXECUTABLE)
 
-main: main.o optionsPricer.o
-	$(CXX) $(CXXFLAGS) main.o optionsPricer.o -o $@
+main: main.o optionsPricer.o assetPriceGenerator.o
+	$(CXX) $(CXXFLAGS) main.o optionsPricer.o assetPriceGenerator.o -o $@
 
 main.o : src/main.cpp src/OptionsPricer.cpp
 	$(CXX) $(CXXFLAGS) -c src/main.cpp -o $@
@@ -31,12 +31,14 @@ main.o : src/main.cpp src/OptionsPricer.cpp
 optionsPricer.o : src/OptionsPricer.cpp include/OptionsPricer.h
 	$(CXX) $(CXXFLAGS) -c src/OptionsPricer.cpp -o $@
 
+assetPriceGenerator.o : src/AssetPriceGenerator.cpp include/AssetPriceGenerator.h
+	$(CXX) $(CXXFLAGS) -c src/AssetPriceGenerator.cpp -o $@
 
 # %.o: $(SRCDIR)/%.cpp
 # 	$(CXX) $(CXXFLAGS) -I$(INCDIR) -c $< -jo $@
 
-# %.o: %.cpp
-# 	$(CXX) $(CXXFLAGS) $< -o $@
+# %.o: $(SRCDIR)/%.cpp $(INCDIR)/%.h
+# 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/%.cpp -o $@
 
 # define the clean rule
 clean:

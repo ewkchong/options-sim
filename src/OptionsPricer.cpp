@@ -4,8 +4,6 @@
 
 #include "../include/OptionsPricer.h"
 
-using namespace optP;
-
 // Returns call price given:
 //		s = asset price
 // 		ex = strike price
