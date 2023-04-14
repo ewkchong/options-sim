@@ -6,9 +6,9 @@
 namespace optP {
 	class optionsPricer {
 		public:
-			double call_price(double s, double ex, double r, double sig, double tte);
-			std::pair<double, double> call_price_delta(double s, double ex, double r, double sig, double tte);
-			double put_price(double s, double ex, double r, double sig, double tte);
+			float call_price(float s, float ex, float r, float sig, float tte);
+			std::pair<float, float> call_price_delta(float s, float ex, float r, float sig, float tte);
+			float put_price(float s, float ex, float r, float sig, float tte);
 	};
 
 }
