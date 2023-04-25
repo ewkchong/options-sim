@@ -14,7 +14,7 @@ SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 INCLUDES = $(wildcard $(INCDIR)/*.h)
 
 # generate object file names from source file names
-OBJECTS = main.o optionsPricer.o
+OBJECTS = main.o optionsPricer.o assetPriceGenerator.o
 
 # set the output binary name
 EXECUTABLE = main

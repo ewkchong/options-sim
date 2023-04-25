@@ -22,7 +22,7 @@ float optionsPricer::call_price(float s,
 	float n1 = 0.5*(1+erf(d1/sqrtf(2)));						
 	float n2 = 0.5*(1+erf(d2/sqrtf(2)));						
 
-	return s*n1-ex*expf(-r*(tte))*n2;
+	return std::fmaxf(s*n1-ex*expf(-r*(tte))*n2, 0);
 }
 
 // Returns put price given:
