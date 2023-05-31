@@ -18,8 +18,8 @@ private:
 
 public:
     AssetPriceGenerator(float price, float drift, float volatility);
-    float getPrice() { return price; }
-    void setNextPrice();
+    float get_price() { return price; }
+    void set_next_price();
 };
 
 #endif

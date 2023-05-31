@@ -11,17 +11,21 @@ void print_sample() {
 	}
 }
 
-int main () {
+void testPricing() {
 	float final_time = 1;
 	AssetPriceGenerator asset_price_generator(10,0.03f,0.3f);
 	float prices[100];
 	for (int i = 0; i < 100; i++) {
-		prices[i] = asset_price_generator.getPrice();
-		asset_price_generator.setNextPrice();
+		prices[i] = asset_price_generator.get_price();
+		asset_price_generator.set_next_price();
 		float call_price = optionsPricer::call_price(prices[i], 10, 0.03f, 0.3f, final_time - (i * 0.01));
 		std::cout << "Asset Price: " << prices[i] << ", Call Price: " << call_price << "\n";
 	}
 
-	std::cout << asset_price_generator.getPrice() << std::endl;
+	std::cout << asset_price_generator.get_price() << std::endl;
+}
+
+int main () {
+	testPricing();
 	return 0;
 }

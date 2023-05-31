@@ -14,7 +14,7 @@ SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 INCLUDES = $(wildcard $(INCDIR)/*.h)
 
 # generate object file names from source file names
-OBJECTS = main.o optionsPricer.o assetPriceGenerator.o
+OBJECTS = main.o optionsPricer.o assetPriceGenerator.o matchingengine.o
 
 # set the output binary name
 EXECUTABLE = main
@@ -22,8 +22,8 @@ EXECUTABLE = main
 # define the build rules
 all: $(EXECUTABLE)
 
-main: main.o optionsPricer.o assetPriceGenerator.o
-	$(CXX) $(CXXFLAGS) main.o optionsPricer.o assetPriceGenerator.o -o $@
+main: main.o optionsPricer.o assetPriceGenerator.o matchingengine.o
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $@
 
 main.o : src/main.cpp src/OptionsPricer.cpp
 	$(CXX) $(CXXFLAGS) -c src/main.cpp -o $@
@@ -33,6 +33,9 @@ optionsPricer.o : src/OptionsPricer.cpp include/OptionsPricer.h
 
 assetPriceGenerator.o : src/AssetPriceGenerator.cpp include/AssetPriceGenerator.h
 	$(CXX) $(CXXFLAGS) -c src/AssetPriceGenerator.cpp -o $@
+
+matchingengine.o : src/MatchingEngine.cpp include/MatchingEngine.h
+	$(CXX) $(CXXFLAGS) -c src/MatchingEngine.cpp -o $@
 
 # %.o: $(SRCDIR)/%.cpp
 # 	$(CXX) $(CXXFLAGS) -I$(INCDIR) -c $< -jo $@
