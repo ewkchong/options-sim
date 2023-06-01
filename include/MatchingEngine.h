@@ -19,12 +19,16 @@ public:
 	std::vector<order_t> buy_orders;
 	std::vector<order_t> sell_orders;
 
+	MatchingEngine(std::string symbol, float price);
+
 	void process_trades();
 	float get_price() { return price; }
 	int get_breakeven_index();
 
 	void place_buy_order(float);
 	void place_sell_order(float);
+
+	void run();
 };
 
 #endif

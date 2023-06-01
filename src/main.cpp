@@ -1,8 +1,15 @@
 #include <iostream>
 #include <cmath>
+#include <thread>
+#include <string>
 
 #include "../include/OptionsPricer.h"
 #include "../include/AssetPriceGenerator.h"
+#include "../include/MatchingEngine.h"
+
+using std::vector;
+using std::thread;
+using std::string;
 
 void print_sample() {
 	for (float tte = 1; tte >= 0; tte = std::round((tte-0.05) * 1e2) / 1e2) {
@@ -25,7 +32,26 @@ void testPricing() {
 	std::cout << asset_price_generator.get_price() << std::endl;
 }
 
+void startMatchingEngine(string symbol) {
+	// stack allocated MatchingEngine
+	MatchingEngine m(symbol, 1);
+	std::cout << "creating matching engine for " << symbol << std::endl;
+
+	m.run();
+}
+
+
 int main () {
-	testPricing();
+	vector<string> symbols = {"AAPL", "TSLA", "NVDA"};
+	vector<thread> engine_threads;
+
+	for (string sym : symbols) {
+		thread t(startMatchingEngine, sym);
+		engine_threads.push_back(std::move(t));
+	}
+
+	for (thread & t : engine_threads) {
+		if (t.joinable()) t.join();
+	}
 	return 0;
 }
