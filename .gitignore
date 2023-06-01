@@ -1,4 +1,15 @@
-main
+# ide files
 .vscode
 
+# object files
 *.o
+
+# build files
+build/
+
+# unnecessary CMake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+.cmake/

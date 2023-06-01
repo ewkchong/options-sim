@@ -48,5 +48,5 @@ void MatchingEngine::place_sell_order(float price) {
 }
 
 void MatchingEngine::run() {
-	std::cout << "running MatchingEngine" << std::endl;
+	std::cout << "running MatchingEngine for " << symbol << "\n";
 }

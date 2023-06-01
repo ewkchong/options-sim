@@ -33,16 +33,16 @@ void testPricing() {
 }
 
 void startMatchingEngine(string symbol) {
-	// stack allocated MatchingEngine
+	// stack allocated MatchingEngines
 	MatchingEngine m(symbol, 1);
-	std::cout << "creating matching engine for " << symbol << std::endl;
+	printf("Starting MatchingEngine for %s\n",  symbol.c_str());
 
 	m.run();
 }
 
 
 int main () {
-	vector<string> symbols = {"AAPL", "TSLA", "NVDA"};
+	vector<string> symbols = {"AAPL", "TSLA", "NVDA", "SPY"};
 	vector<thread> engine_threads;
 
 	for (string sym : symbols) {
