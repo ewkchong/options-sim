@@ -7,8 +7,10 @@
 // typedef std::pair<std::string, float> order_t;
 typedef struct order_struct {
 	std::string trader_id;
+	std::string order_id;
 	float price;
-	int quantity;
+	int order_quantity;
+	int rolling_quantity;
 } order_t;
 
 class MatchingEngine {
@@ -22,13 +24,15 @@ public:
 	MatchingEngine(std::string symbol, float price);
 
 	void process_trades();
+	void match_orders();
 	float get_price() { return price; }
 	int get_breakeven_index();
 
-	void place_buy_order(float);
-	void place_sell_order(float);
+	void place_buy_order(std::string, float, int);
+	void place_sell_order(std::string, float, int);
 
 	void run();
+	void run_iterations(int);
 };
 
 #endif
