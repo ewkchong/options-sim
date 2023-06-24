@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <iostream>
 
-#include "../include/MatchingEngine.h"
+#include "MatchingEngine.h"
 
 MatchingEngine::MatchingEngine(std::string symbol, float price)
     : symbol(symbol), price(price) {}

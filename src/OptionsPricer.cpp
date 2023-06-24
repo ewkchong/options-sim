@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <algorithm>
 
-#include "../include/OptionsPricer.h"
+#include "OptionsPricer.h"
 
 // Returns call price given:
 //		s = asset price

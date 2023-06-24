@@ -3,9 +3,10 @@
 #include <string>
 #include <thread>
 
-#include "../include/AssetPriceGenerator.h"
-#include "../include/MatchingEngine.h"
-#include "../include/OptionsPricer.h"
+#include "AssetPriceGenerator.h"
+#include "MatchingEngine.h"
+#include "OptionsPricer.h"
+#include "Server.h"
 
 using std::string;
 
@@ -42,21 +43,17 @@ void startMatchingEngine(string symbol) {
     m.run();
 }
 
-int main() {
-    // vector<string> symbols = {"AAPL", "TSLA", "NVDA", "SPY"};
-    // vector<thread> engine_threads;
-    //
-    // for (string sym : symbols) {
-    // 	thread t(startMatchingEngine, sym);
-    // 	engine_threads.push_back(std::move(t));
-    // }
-    //
-    // for (thread & t : engine_threads) {
-    // 	if (t.joinable()) t.join();
-    // }
+int main(int argc, char *argv[]) {
+	if (argc != 2) {
+		std::cerr << "usage: options-sim <symbol>" << std::endl;
+		return 1;
+	}
 
-    MatchingEngine m("AAPL", 100);
-    printf("Starting MatchingEngine for AAPL\n");
-    m.run();
+    // vector<string> symbols = {"AAPL", "TSLA", "NVDA", "SPY"};
+	
+	Server s;
+
+	s.start();
+
     return 0;
 }

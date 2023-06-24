@@ -6,8 +6,8 @@
 
 // typedef std::pair<std::string, float> order_t;
 typedef struct order_struct {
-	std::string trader_id;
-	std::string order_id;
+	char trader_id[64];
+	char order_id[64];
 	float price;
 	int order_quantity;
 	int rolling_quantity;

@@ -1,4 +1,3 @@
-#include <condition_variable>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
@@ -9,13 +8,13 @@
 #include <unistd.h>
 #include <vector>
 
-// Global variables
-std::vector<int> clients;   // Store client sockets
-std::mutex mtx;             // Mutex for protecting shared data
-std::condition_variable cv; // Condition variable for client handling
+#include "Server.h"
+#include "Message.h"
 
-// Function to handle a client
-void handleClient(int clientSocket) {
+static std::vector<int> clients; // Store client sockets
+static std::mutex mtx;           // Mutex for protecting shared data
+                       //
+void Server::handleClient(int clientSocket) {
     char buffer[1024];
     std::cout << "Client connected. Socket: " << clientSocket << std::endl;
 
@@ -29,7 +28,6 @@ void handleClient(int clientSocket) {
         std::cout << "Received from client (Socket " << clientSocket
                   << "): " << buffer << std::endl;
 
-        // Echo the message back to the client
         send(clientSocket, buffer, bytesRead, 0);
     }
 
@@ -37,16 +35,13 @@ void handleClient(int clientSocket) {
 
     {
         std::lock_guard<std::mutex> lock(mtx);
-        clients.erase(std::remove(clients.begin(), clients.end(), clientSocket),
-                      clients.end());
+        (void)std::remove(clients.begin(), clients.end(), clientSocket);
     }
-
-    cv.notify_all();
 
     std::cout << "Client disconnected. Socket: " << clientSocket << std::endl;
 }
 
-int start() {
+int Server::start() {
     // Create a socket
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (serverSocket == -1) {
@@ -57,13 +52,13 @@ int start() {
     // Set up server address
     sockaddr_in serverAddress{};
     serverAddress.sin_family = AF_INET;
-    serverAddress.sin_port = htons(12345);
+    serverAddress.sin_port = htons(9999);
     serverAddress.sin_addr.s_addr = INADDR_ANY;
 
     // Bind the socket to the specified IP and port
     if (bind(serverSocket, (struct sockaddr *)&serverAddress,
              sizeof(serverAddress)) == -1) {
-        std::cerr << "Failed to bind to port 12345." << std::endl;
+        std::cerr << "Failed to bind to port 9999." << std::endl;
         close(serverSocket);
         return 1;
     }
@@ -75,7 +70,7 @@ int start() {
         return 1;
     }
 
-    std::cout << "Server started. Listening on port 12345." << std::endl;
+    std::cout << "Server started. Listening on port 9999." << std::endl;
 
     while (true) {
         // Accept a new client connection
