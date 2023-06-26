@@ -26,6 +26,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+	// TODO: create order to send to server
+
 	// send message to server
     std::string message = "Hello, server!";
     if (send(sockfd, message.c_str(), message.size(), 0) == -1) {

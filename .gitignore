@@ -1,5 +1,7 @@
 # ide files
 .vscode
+.nvimrc
+.clang-format
 
 # object files
 *.o

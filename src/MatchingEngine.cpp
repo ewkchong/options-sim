@@ -16,14 +16,10 @@ int MatchingEngine::get_breakeven_index() {
     return -1;
 }
 
-bool compareOrders(const order_t &a, const order_t &b) {
-    return (a.price < b.price);
-}
-
 void MatchingEngine::process_trades() {
     // provide natural ordering of orders
-    sort(buy_orders.rbegin(), buy_orders.rend(), &compareOrders);
-    sort(sell_orders.begin(), sell_orders.end(), &compareOrders);
+    sort(buy_orders.rbegin(), buy_orders.rend());
+    sort(sell_orders.begin(), sell_orders.end());
 
     while ((buy_orders.size() > 0 && sell_orders.size() > 0) &&
            sell_orders[0].price <= buy_orders[0].price) {

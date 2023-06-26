@@ -11,6 +11,9 @@ typedef struct order_struct {
 	float price;
 	int order_quantity;
 	int rolling_quantity;
+	bool operator<(const order_struct &o) {
+		return (price < o.price);
+	}
 } order_t;
 
 class MatchingEngine {

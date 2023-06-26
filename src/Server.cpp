@@ -10,6 +10,7 @@
 
 #include "Server.h"
 #include "Message.h"
+#include "MatchingEngine.h"
 
 static std::vector<int> clients; // Store client sockets
 static std::mutex mtx;           // Mutex for protecting shared data
@@ -24,6 +25,8 @@ void Server::handleClient(int clientSocket) {
         if (bytesRead <= 0) {
             break;
         }
+
+		//  TODO: Process message, check if order
 
         std::cout << "Received from client (Socket " << clientSocket
                   << "): " << buffer << std::endl;
